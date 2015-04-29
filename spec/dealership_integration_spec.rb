@@ -23,5 +23,8 @@ describe('the path of dealership', {:type => :feature}) do
   click_button('Add Dealership')
   click_link('See Dealership List')
   click_link('Steves Cars')
+  expect(page).to have_content('Here are all the cars in this dealership:')
   end
+
+
 end
