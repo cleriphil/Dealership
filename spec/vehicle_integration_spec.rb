@@ -4,6 +4,10 @@ Capybara.app = Sinatra::Application
 set(:show_expections, false)
 
 describe('path for Vehicle class', {:type => :feature}) do
+  before() do
+    Vehicle.clear()
+  end
+
   it('processes the user input and returns the success page') do
     visit('/')
     click_link('Add New Vehicle')
@@ -22,6 +26,18 @@ describe('path for Vehicle class', {:type => :feature}) do
     click_button('Add Vehicle')
     click_link('See Vehicle List')
     expect(page).to have_content('Here are the vehicles on this lot:')
+  end
+  it('processes the user input and returns the vehicle page') do
+    visit('/')
+    click_link('Add New Vehicle')
+    fill_in('make', :with => 'Toyota')
+    fill_in('model', :with => 'Prius')
+    fill_in('year', :with => 2000)
+    click_button('Add Vehicle')
+    click_link('See Vehicle List')
+    click_link('Prius')
+    expect(page).to have_content('Toyota')
+    expect(page).to have_content('Prius')
   end
 
 end
